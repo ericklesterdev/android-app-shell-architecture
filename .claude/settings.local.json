@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:docs.balldontlie.io)",
+      "Bash(git init:*)",
+      "Bash(git remote add:*)",
+      "Bash(./gradlew:*)",
+      "Bash(git -C /Users/ericksumugat/Workstation/Personal/android-app-shell-architecture add .gitignore gradle.properties gradle/ gradlew gradlew.bat settings.gradle.kts build.gradle.kts build-logic/ .claude/ CLAUDE.md)",
+      "Bash(git -C /Users/ericksumugat/Workstation/Personal/android-app-shell-architecture commit -m \"$\\(cat <<''EOF''\nchore: initialize Gradle infrastructure with version catalog and convention plugins\nEOF\n\\)\")"
+    ]
+  }
+}
