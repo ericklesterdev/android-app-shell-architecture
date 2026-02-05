@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("build-logic/convention")
+    includeBuild("../../build-logic/convention")
     repositories {
         google()
         mavenCentral()
@@ -13,13 +13,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
     }
-}
-
-rootProject.name = "NbaHub"
-
-// Platform modules
-includeBuild("platform/contracts") {
-    dependencySubstitution {
-        substitute(module("com.example:platform-contracts")).using(project(":"))
+    versionCatalogs {
+        create("libs") {
+            from(files("../../gradle/libs.versions.toml"))
+        }
     }
 }
+
+rootProject.name = "platform-contracts"

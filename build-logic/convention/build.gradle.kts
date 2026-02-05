@@ -3,9 +3,10 @@ plugins {
 }
 
 dependencies {
-    compileOnly(libs.android.gradle.plugin)
-    compileOnly(libs.kotlin.gradle.plugin)
-    compileOnly(libs.compose.compiler.gradle.plugin)
+    implementation(libs.android.gradle.plugin)
+    implementation(libs.kotlin.gradle.plugin)
+    implementation(libs.kotlin.serialization.gradle.plugin)
+    implementation(libs.compose.compiler.gradle.plugin)
 }
 
 gradlePlugin {
