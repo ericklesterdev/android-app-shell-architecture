@@ -17,6 +17,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "NbaHub"
 
+include(":app")
+
 // Platform modules
 includeBuild("platform/contracts") {
     dependencySubstitution {
