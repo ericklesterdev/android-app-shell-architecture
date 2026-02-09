@@ -20,8 +20,13 @@ rootProject.name = "NbaHub"
 include(":app")
 
 // Platform modules
-includeBuild("platform/contracts") {
+includeBuild("platform/network") {
     dependencySubstitution {
-        substitute(module("com.example:platform-contracts")).using(project(":"))
+        substitute(module("com.example:platform-network")).using(project(":"))
+    }
+}
+includeBuild("platform/storage") {
+    dependencySubstitution {
+        substitute(module("com.example:platform-storage")).using(project(":"))
     }
 }

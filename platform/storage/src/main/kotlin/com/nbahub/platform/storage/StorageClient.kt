@@ -1,4 +1,4 @@
-package com.nbahub.platform.contracts
+package com.nbahub.platform.storage
 
 import kotlinx.coroutines.flow.Flow
 

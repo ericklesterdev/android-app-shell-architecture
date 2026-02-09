@@ -1,4 +1,4 @@
-package com.nbahub.platform.contracts
+package com.nbahub.platform.network
 
 import kotlinx.serialization.DeserializationStrategy
 

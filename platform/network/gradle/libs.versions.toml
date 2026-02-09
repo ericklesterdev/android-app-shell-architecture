@@ -1,0 +1,7 @@
+[versions]
+coroutines = "1.8.1"
+kotlinxSerialization = "1.7.1"
+
+[libraries]
+coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
