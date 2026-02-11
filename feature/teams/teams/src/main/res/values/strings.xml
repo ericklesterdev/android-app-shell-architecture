@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="teams_header">Teams</string>
+    <string name="teams_section_favorites">FAVORITES</string>
+    <string name="teams_section_all">ALL TEAMS</string>
+    <string name="teams_filter_all">All</string>
+    <string name="teams_filter_eastern">Eastern</string>
+    <string name="teams_filter_western">Western</string>
+    <string name="teams_favorite_icon_description">Favorite</string>
+</resources>

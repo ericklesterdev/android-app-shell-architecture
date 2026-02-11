@@ -3,26 +3,31 @@ package com.nbahub.feature.teams.showcase
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.MaterialTheme
-import com.nbahub.feature.teams.TeamsFeature
-import com.nbahub.feature.teams.TeamsFeatureConfig
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.ui.Modifier
+import com.nbahub.feature.teams.TeamsFeatureDependencies
+import com.nbahub.feature.teams.TeamsScreen
 import com.nbahub.platform.network.mock.MockNetworkClient
 import com.nbahub.platform.storage.DataStoreStorageClient
 
 class ShowcaseActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
 
-        val teamsFeature = TeamsFeature(
-            TeamsFeatureConfig(
-                networkClient = MockNetworkClient(applicationContext),
-                storageClient = DataStoreStorageClient(applicationContext),
-            )
+        val dependencies = TeamsFeatureDependencies(
+            networkClient = MockNetworkClient(applicationContext),
+            storageClient = DataStoreStorageClient(applicationContext),
         )
 
         setContent {
-            MaterialTheme {
-                teamsFeature.TeamsScreen()
+            Scaffold { innerPadding ->
+                TeamsScreen(
+                    dependencies = dependencies,
+                    modifier = Modifier.padding(innerPadding),
+                )
             }
         }
     }

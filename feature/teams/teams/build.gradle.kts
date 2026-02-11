@@ -17,6 +17,7 @@ tasks.configureEach {
 }
 
 dependencies {
+    implementation("com.example:platform-design")
     implementation("com.example:platform-network")
     implementation("com.example:platform-storage")
 

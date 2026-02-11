@@ -1,0 +1,37 @@
+package com.nbahub.feature.teams.ui
+
+import androidx.compose.ui.graphics.Color
+
+internal fun teamColor(abbreviation: String): Color = when (abbreviation) {
+    "ATL" -> Color(0xFFE03A3E)
+    "BOS" -> Color(0xFF007A33)
+    "BKN" -> Color(0xFF000000)
+    "CHA" -> Color(0xFF1D1160)
+    "CHI" -> Color(0xFFCE1141)
+    "CLE" -> Color(0xFF860038)
+    "DAL" -> Color(0xFF00538C)
+    "DEN" -> Color(0xFF0E2240)
+    "DET" -> Color(0xFFC8102E)
+    "GSW" -> Color(0xFF1D428A)
+    "HOU" -> Color(0xFFCE1141)
+    "IND" -> Color(0xFF002D62)
+    "LAC" -> Color(0xFFC8102E)
+    "LAL" -> Color(0xFF552583)
+    "MEM" -> Color(0xFF5D76A9)
+    "MIA" -> Color(0xFF98002E)
+    "MIL" -> Color(0xFF00471B)
+    "MIN" -> Color(0xFF0C2340)
+    "NOP" -> Color(0xFF0C2340)
+    "NYK" -> Color(0xFF006BB6)
+    "OKC" -> Color(0xFF007AC1)
+    "ORL" -> Color(0xFF0077C0)
+    "PHI" -> Color(0xFF006BB6)
+    "PHX" -> Color(0xFF1D1160)
+    "POR" -> Color(0xFFE03A3E)
+    "SAC" -> Color(0xFF5A2D81)
+    "SAS" -> Color(0xFFC4CED4)
+    "TOR" -> Color(0xFFCE1141)
+    "UTA" -> Color(0xFF002B5C)
+    "WAS" -> Color(0xFF002B5C)
+    else -> Color(0xFF666666)
+}
