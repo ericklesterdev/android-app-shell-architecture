@@ -1,5 +1,5 @@
 pluginManagement {
-    includeBuild("build-logic/convention")
+    includeBuild("../../build-logic/convention")
     repositories {
         google()
         mavenCentral()
@@ -15,25 +15,19 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "NbaHub"
+rootProject.name = "feature-teams"
 
-include(":app")
+include(":teams")
+include(":showcase")
 
 // Platform modules
-includeBuild("platform/network") {
+includeBuild("../../platform/network") {
     dependencySubstitution {
         substitute(module("com.example:platform-network")).using(project(":"))
     }
 }
-includeBuild("platform/storage") {
+includeBuild("../../platform/storage") {
     dependencySubstitution {
         substitute(module("com.example:platform-storage")).using(project(":"))
-    }
-}
-
-// Feature modules
-includeBuild("feature/teams") {
-    dependencySubstitution {
-        substitute(module("com.example:feature-teams")).using(project(":teams"))
     }
 }
