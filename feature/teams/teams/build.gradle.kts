@@ -32,4 +32,8 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.compose)
 
     debugImplementation(libs.compose.ui.tooling)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.coroutines.test)
+    testImplementation(libs.turbine)
 }
