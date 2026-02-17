@@ -7,4 +7,16 @@
     <string name="teams_filter_eastern">Eastern</string>
     <string name="teams_filter_western">Western</string>
     <string name="teams_favorite_icon_description">Favorite</string>
+    <string name="teams_detail_roster">Roster</string>
+    <string name="teams_detail_back">Back</string>
+    <string name="teams_detail_favorite_add">Add to favorites</string>
+    <string name="teams_detail_favorite_remove">Remove from favorites</string>
+    <string name="teams_detail_no_roster">No roster data available</string>
+    <string name="teams_conference_eastern">Eastern</string>
+    <string name="teams_conference_western">Western</string>
+    <string name="teams_detail_team_info">TEAM INFORMATION</string>
+    <string name="teams_detail_conference">Conference: %s</string>
+    <string name="teams_detail_division">Division: %s</string>
+    <string name="teams_detail_city">City: %s</string>
+    <string name="teams_detail_weight">%s lbs</string>
 </resources>

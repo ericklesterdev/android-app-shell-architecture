@@ -12,7 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,27 +23,20 @@ import com.nbahub.feature.teams.ui.components.TeamCard
 
 @Composable
 internal fun TeamsListScreen(
-    viewModel: TeamsListViewModel,
     onTeamClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: TeamsListViewModel = provideViewModel(factory = TeamsListViewModel::factory),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val filteredTeams = remember(uiState.teams, uiState.selectedConference) {
-        when (uiState.selectedConference) {
-            Conference.ALL -> uiState.teams
-            Conference.EASTERN -> uiState.teams.filter { it.conference == "East" }
-            Conference.WESTERN -> uiState.teams.filter { it.conference == "West" }
-        }
+    val filteredTeams = when (uiState.selectedConference) {
+        Conference.ALL -> uiState.teams
+        Conference.EASTERN -> uiState.teams.filter { it.conference == "East" }
+        Conference.WESTERN -> uiState.teams.filter { it.conference == "West" }
     }
 
-    val favoriteTeams = remember(filteredTeams, uiState.favoriteTeamIds) {
-        filteredTeams.filter { it.id in uiState.favoriteTeamIds }
-    }
-
-    val allTeams = remember(filteredTeams, uiState.favoriteTeamIds) {
-        filteredTeams.filter { it.id !in uiState.favoriteTeamIds }
-    }
+    val favoriteTeams = filteredTeams.filter { it.id in uiState.favoriteTeamIds }
+    val allTeams = filteredTeams.filter { it.id !in uiState.favoriteTeamIds }
 
     LazyColumn(
         modifier = modifier
