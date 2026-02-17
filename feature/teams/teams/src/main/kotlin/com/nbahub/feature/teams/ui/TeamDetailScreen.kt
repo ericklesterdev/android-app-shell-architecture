@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -37,155 +36,183 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nbahub.feature.teams.R
+import com.nbahub.feature.teams.data.model.Player
+import com.nbahub.feature.teams.data.model.Team
 import com.nbahub.feature.teams.ui.components.FavoriteFab
 import com.nbahub.feature.teams.ui.components.RosterItem
 import com.nbahub.feature.teams.ui.components.TeamBanner
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 internal fun TeamDetailScreen(
-    viewModel: TeamDetailViewModel,
+    teamId: Int,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: TeamDetailViewModel = provideViewModel(
+        key = "team_detail_$teamId",
+    ) { deps -> TeamDetailViewModel.factory(teamId, deps) },
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (val state = uiState) {
-        is TeamDetailUiState.Loading -> {
-            Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                CircularProgressIndicator()
-            }
-        }
-        is TeamDetailUiState.Error -> {
-            Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Text(text = state.message, color = MaterialTheme.colorScheme.error)
-            }
-        }
-        is TeamDetailUiState.Success -> {
-            Scaffold(
-                modifier = modifier,
-                topBar = {
-                    TopAppBar(
-                        title = { Text(state.team.fullName) },
-                        navigationIcon = {
-                            IconButton(onClick = onBack) {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = stringResource(R.string.teams_detail_back),
-                                )
-                            }
-                        },
-                        windowInsets = WindowInsets(0, 0, 0, 0),
-                    )
-                },
-                floatingActionButton = {
-                    FavoriteFab(
-                        isFavorite = state.isFavorite,
-                        onClick = viewModel::toggleFavorite,
-                    )
-                },
-            ) { innerPadding ->
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding),
-                ) {
-                    item {
-                        TeamBanner(
-                            abbreviation = state.team.abbreviation,
-                            city = state.team.city,
-                            name = state.team.name,
+        is TeamDetailUiState.Loading -> TeamDetailLoading(modifier)
+        is TeamDetailUiState.Error -> TeamDetailError(state.message, modifier)
+        is TeamDetailUiState.Success -> TeamDetailContent(
+            team = state.team,
+            players = state.players,
+            isFavorite = state.isFavorite,
+            onBack = onBack,
+            onToggleFavorite = viewModel::toggleFavorite,
+            modifier = modifier,
+        )
+    }
+}
+
+@Composable
+private fun TeamDetailLoading(modifier: Modifier = Modifier) {
+    Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+private fun TeamDetailError(message: String, modifier: Modifier = Modifier) {
+    Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text(text = message, color = MaterialTheme.colorScheme.error)
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@Composable
+private fun TeamDetailContent(
+    team: Team,
+    players: List<Player>,
+    isFavorite: Boolean,
+    onBack: () -> Unit,
+    onToggleFavorite: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+                title = { Text(team.fullName) },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.teams_detail_back),
                         )
                     }
+                },
+                windowInsets = WindowInsets(0, 0, 0, 0),
+            )
+        },
+        floatingActionButton = {
+            FavoriteFab(
+                isFavorite = isFavorite,
+                onClick = onToggleFavorite,
+            )
+        },
+    ) { innerPadding ->
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+        ) {
+            item {
+                TeamBanner(
+                    abbreviation = team.abbreviation,
+                    city = team.city,
+                    name = team.name,
+                )
+            }
 
-                    item {
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 12.dp),
-                            shape = RoundedCornerShape(16.dp),
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surface,
-                            ),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+            item {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 12.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = stringResource(R.string.teams_detail_team_info),
+                            style = MaterialTheme.typography.labelMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        FlowRow(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
                         ) {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Text(
-                                    text = stringResource(R.string.teams_detail_team_info),
-                                    style = MaterialTheme.typography.labelMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
-                                Spacer(Modifier.height(8.dp))
-                                FlowRow(
-                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                                ) {
-                                    InfoChip(
-                                        label = stringResource(
-                                            R.string.teams_detail_conference,
-                                            displayConference(state.team.conference),
-                                        ),
-                                    )
-                                    InfoChip(
-                                        label = stringResource(
-                                            R.string.teams_detail_division,
-                                            state.team.division,
-                                        ),
-                                    )
-                                    InfoChip(
-                                        label = stringResource(
-                                            R.string.teams_detail_city,
-                                            state.team.city,
-                                        ),
-                                    )
-                                }
-                            }
+                            InfoChip(
+                                label = stringResource(
+                                    R.string.teams_detail_conference,
+                                    displayConference(team.conference),
+                                ),
+                            )
+                            InfoChip(
+                                label = stringResource(
+                                    R.string.teams_detail_division,
+                                    team.division,
+                                ),
+                            )
+                            InfoChip(
+                                label = stringResource(
+                                    R.string.teams_detail_city,
+                                    team.city,
+                                ),
+                            )
                         }
                     }
-
-                    item {
-                        Card(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp),
-                            shape = RoundedCornerShape(16.dp),
-                            colors = CardDefaults.cardColors(
-                                containerColor = MaterialTheme.colorScheme.surface,
-                            ),
-                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-                        ) {
-                            Column(modifier = Modifier.padding(vertical = 16.dp)) {
-                                Text(
-                                    text = stringResource(R.string.teams_detail_roster),
-                                    style = MaterialTheme.typography.titleLarge,
-                                    fontWeight = FontWeight.Bold,
-                                    modifier = Modifier.padding(horizontal = 16.dp),
-                                )
-                                Spacer(Modifier.height(8.dp))
-                                if (state.players.isEmpty()) {
-                                    Text(
-                                        text = stringResource(R.string.teams_detail_no_roster),
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.padding(horizontal = 16.dp),
-                                    )
-                                } else {
-                                    state.players.forEachIndexed { index, player ->
-                                        if (index > 0) {
-                                            HorizontalDivider(
-                                                modifier = Modifier.padding(horizontal = 16.dp),
-                                            )
-                                        }
-                                        RosterItem(player = player)
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    item { Spacer(Modifier.height(80.dp)) }
                 }
             }
+
+            item {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                    ),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                ) {
+                    Column(modifier = Modifier.padding(vertical = 16.dp)) {
+                        Text(
+                            text = stringResource(R.string.teams_detail_roster),
+                            style = MaterialTheme.typography.titleLarge,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                        )
+                        Spacer(Modifier.height(8.dp))
+                        if (players.isEmpty()) {
+                            Text(
+                                text = stringResource(R.string.teams_detail_no_roster),
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.padding(horizontal = 16.dp),
+                            )
+                        } else {
+                            players.forEachIndexed { index, player ->
+                                if (index > 0) {
+                                    HorizontalDivider(
+                                        modifier = Modifier.padding(horizontal = 16.dp),
+                                    )
+                                }
+                                RosterItem(player = player)
+                            }
+                        }
+                    }
+                }
+            }
+
+            item { Spacer(Modifier.height(80.dp)) }
         }
     }
 }

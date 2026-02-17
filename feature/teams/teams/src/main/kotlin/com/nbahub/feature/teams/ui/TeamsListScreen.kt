@@ -23,9 +23,9 @@ import com.nbahub.feature.teams.ui.components.TeamCard
 
 @Composable
 internal fun TeamsListScreen(
-    viewModel: TeamsListViewModel,
     onTeamClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: TeamsListViewModel = provideViewModel(factory = TeamsListViewModel::factory),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.nbahub.feature.teams.R
 import com.nbahub.feature.teams.data.TeamsService
 import com.nbahub.feature.teams.data.model.Team
-import com.nbahub.platform.network.NetworkClient
+import com.nbahub.feature.teams.TeamsFeatureDependencies
 import com.nbahub.platform.storage.StorageClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -61,11 +61,11 @@ internal class TeamsListViewModel(
     }
 
     companion object {
-        fun factory(networkClient: NetworkClient, storageClient: StorageClient) =
+        fun factory(deps: TeamsFeatureDependencies) =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                    TeamsListViewModel(TeamsService(networkClient), storageClient) as T
+                    TeamsListViewModel(TeamsService(deps.networkClient), deps.storageClient) as T
             }
     }
 }

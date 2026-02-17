@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.nbahub.feature.teams.data.TeamsService
 import com.nbahub.feature.teams.data.model.Player
 import com.nbahub.feature.teams.data.model.Team
-import com.nbahub.platform.network.NetworkClient
+import com.nbahub.feature.teams.TeamsFeatureDependencies
 import com.nbahub.platform.storage.StorageClient
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -78,11 +78,11 @@ internal class TeamDetailViewModel(
     }
 
     companion object {
-        fun factory(teamId: Int, networkClient: NetworkClient, storageClient: StorageClient) =
+        fun factory(teamId: Int, deps: TeamsFeatureDependencies) =
             object : ViewModelProvider.Factory {
                 @Suppress("UNCHECKED_CAST")
                 override fun <T : ViewModel> create(modelClass: Class<T>): T =
-                    TeamDetailViewModel(teamId, TeamsService(networkClient), storageClient) as T
+                    TeamDetailViewModel(teamId, TeamsService(deps.networkClient), deps.storageClient) as T
             }
     }
 }
