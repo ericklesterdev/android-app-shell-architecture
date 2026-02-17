@@ -6,6 +6,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.int
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+import java.io.FileNotFoundException
 
 class MockNetworkClient(private val context: Context) : NetworkClient {
 
@@ -17,7 +23,30 @@ class MockNetworkClient(private val context: Context) : NetworkClient {
         deserializer: DeserializationStrategy<T>,
     ): T = withContext(Dispatchers.IO) {
         val assetPath = "mock/${path.replace("/", "_")}.json"
-        val jsonString = context.assets.open(assetPath).bufferedReader().use { it.readText() }
+        val jsonString = try {
+            context.assets.open(assetPath).bufferedReader().use { it.readText() }
+        } catch (_: FileNotFoundException) {
+            detailFallback(path) ?: throw FileNotFoundException("Mock file not found: $assetPath")
+        }
         json.decodeFromString(deserializer, jsonString)
+    }
+
+    private fun detailFallback(path: String): String? {
+        val segments = path.trimEnd('/').split("/")
+        val idStr = segments.lastOrNull() ?: return null
+        val id = idStr.toIntOrNull() ?: return null
+        val parentPath = segments.dropLast(1).joinToString("/")
+        val parentAssetPath = "mock/${parentPath.replace("/", "_")}.json"
+        val parentJson = try {
+            context.assets.open(parentAssetPath).bufferedReader().use { it.readText() }
+        } catch (_: FileNotFoundException) {
+            return null
+        }
+        val root = json.parseToJsonElement(parentJson).jsonObject
+        val dataArray = root["data"]?.jsonArray ?: return null
+        val match = dataArray.firstOrNull { element ->
+            (element as? JsonObject)?.get("id")?.jsonPrimitive?.int == id
+        } ?: return null
+        return """{"data":[$match]}"""
     }
 }
