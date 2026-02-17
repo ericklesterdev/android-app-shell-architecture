@@ -2,6 +2,7 @@ package com.nbahub.feature.teams.ui
 
 import androidx.compose.ui.graphics.Color
 
+@Suppress("CyclomaticComplexMethod")
 internal fun teamColor(abbreviation: String): Color = when (abbreviation) {
     "ATL" -> Color(0xFFE03A3E)
     "BOS" -> Color(0xFF007A33)

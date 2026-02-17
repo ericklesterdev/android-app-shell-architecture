@@ -11,6 +11,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             pluginManager.apply("com.android.application")
             pluginManager.apply("org.jetbrains.kotlin.android")
             pluginManager.apply("org.jetbrains.kotlin.plugin.serialization")
+            pluginManager.apply("nbahub.detekt")
 
             extensions.configure(BaseAppModuleExtension::class.java) {
                 compileSdk = 35

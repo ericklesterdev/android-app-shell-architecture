@@ -5,6 +5,7 @@ import com.nbahub.feature.teams.data.model.PlayersResponse
 import com.nbahub.feature.teams.data.model.Team
 import com.nbahub.feature.teams.data.model.TeamsResponse
 
+@Suppress("LongParameterList")
 internal fun team(
     id: Int = 1,
     conference: String = "East",

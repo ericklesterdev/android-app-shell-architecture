@@ -11,6 +11,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             pluginManager.apply("com.android.library")
             pluginManager.apply("org.jetbrains.kotlin.android")
             pluginManager.apply("org.jetbrains.kotlin.plugin.serialization")
+            pluginManager.apply("nbahub.detekt")
 
             extensions.configure(LibraryExtension::class.java) {
                 compileSdk = 35

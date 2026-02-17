@@ -51,7 +51,7 @@ internal class TeamDetailViewModel(
                     val isFavorite = storageClient.isFavoriteTeam(teamId)
                     _uiState.value = TeamDetailUiState.Success(team, players, isFavorite)
                 }
-            } catch (e: Exception) {
+            } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
                 _uiState.value = TeamDetailUiState.Error(e.message ?: "Unknown error")
             }
         }
