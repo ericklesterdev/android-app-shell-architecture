@@ -1,0 +1,19 @@
+complexity:
+  LongMethod:
+    threshold: 60
+    ignoreAnnotated: ['Composable']
+  LongParameterList:
+    ignoreAnnotated: ['Composable']
+  CyclomaticComplexMethod:
+    threshold: 15
+    ignoreAnnotated: ['Composable']
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+  MatchingDeclarationName:
+    active: false
+
+style:
+  MagicNumber:
+    active: false

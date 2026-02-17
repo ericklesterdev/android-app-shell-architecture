@@ -7,6 +7,7 @@ class KotlinLibraryConventionPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply("org.jetbrains.kotlin.jvm")
             pluginManager.apply("org.jetbrains.kotlin.plugin.serialization")
+            pluginManager.apply("nbahub.detekt")
 
             extensions.configure(KotlinJvmProjectExtension::class.java) {
                 jvmToolchain(17)

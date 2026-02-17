@@ -31,6 +31,7 @@ class MockNetworkClient(private val context: Context) : NetworkClient {
         json.decodeFromString(deserializer, jsonString)
     }
 
+    @Suppress("ReturnCount")
     private fun detailFallback(path: String): String? {
         val segments = path.trimEnd('/').split("/")
         val idStr = segments.lastOrNull() ?: return null

@@ -7,6 +7,7 @@ dependencies {
     implementation(libs.kotlin.gradle.plugin)
     implementation(libs.kotlin.serialization.gradle.plugin)
     implementation(libs.compose.compiler.gradle.plugin)
+    implementation(libs.detekt.gradle.plugin)
 }
 
 gradlePlugin {
@@ -30,6 +31,10 @@ gradlePlugin {
         register("androidApplicationCompose") {
             id = "nbahub.android.application.compose"
             implementationClass = "AndroidApplicationComposeConventionPlugin"
+        }
+        register("detekt") {
+            id = "nbahub.detekt"
+            implementationClass = "DetektConventionPlugin"
         }
     }
 }
