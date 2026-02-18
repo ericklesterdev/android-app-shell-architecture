@@ -1,16 +1,12 @@
 package com.nbahub.feature.scores.di
 
 import com.nbahub.feature.scores.ScoresFeatureDependencies
-import com.nbahub.feature.scores.data.ScoresService
-import com.nbahub.platform.storage.StorageClient
 import dagger.Component
 
 @Component(modules = [PlatformModule::class])
 internal interface ScoresComponent {
 
-    fun scoresService(): ScoresService
-
-    fun storageClient(): StorageClient
+    fun viewModelFactory(): ScoresViewModelFactory
 
     @Component.Factory
     interface Factory {

@@ -1,15 +1,12 @@
 package com.nbahub.feature.scores
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.staticCompositionLocalOf
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import com.nbahub.feature.scores.di.ScoresComponent
+import com.nbahub.feature.scores.ui.LocalScoresViewModelFactory
+import com.nbahub.feature.scores.ui.ScoresListScreen
 import com.nbahub.platform.network.NetworkClient
 import com.nbahub.platform.storage.StorageClient
 
@@ -18,25 +15,16 @@ data class ScoresFeatureDependencies(
     val storageClient: StorageClient,
 )
 
-internal val LocalScoresDependencies = staticCompositionLocalOf<ScoresFeatureDependencies> {
-    error("ScoresFeatureDependencies not provided")
-}
-
 @Composable
 fun ScoresScreen(
     dependencies: ScoresFeatureDependencies,
     modifier: Modifier = Modifier,
     onTeamClick: (Int) -> Unit = {},
 ) {
-    CompositionLocalProvider(LocalScoresDependencies provides dependencies) {
-        Box(
-            modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(
-                text = stringResource(R.string.scores_placeholder),
-                style = MaterialTheme.typography.titleMedium,
-            )
-        }
+    val factory = remember(dependencies) {
+        ScoresComponent.create(dependencies).viewModelFactory()
+    }
+    CompositionLocalProvider(LocalScoresViewModelFactory provides factory) {
+        ScoresListScreen(modifier = modifier)
     }
 }
