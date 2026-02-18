@@ -2,7 +2,7 @@
 <resources>
     <string name="scores_header">Scores</string>
     <string name="scores_live_count">%d games live now</string>
-    <string name="scores_section_your_teams">YOUR TEAMS</string>
+
 
     <string name="scores_error">Error: %s</string>
     <string name="scores_favorite_description">Favorite team</string>
