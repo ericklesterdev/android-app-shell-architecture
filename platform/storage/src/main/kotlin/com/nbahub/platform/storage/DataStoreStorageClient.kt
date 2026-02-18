@@ -3,6 +3,7 @@ package com.nbahub.platform.storage
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -15,6 +16,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class DataStoreStorageClient(private val context: Context) : StorageClient {
 
     private val favoriteTeamIdsKey = stringSetPreferencesKey("favorite_team_ids")
+    private val darkThemeKey = booleanPreferencesKey("dark_theme")
 
     override fun observeFavoriteTeamIds(): Flow<Set<Int>> =
         context.dataStore.data.map { prefs ->
@@ -35,4 +37,15 @@ class DataStoreStorageClient(private val context: Context) : StorageClient {
 
     override suspend fun isFavoriteTeam(id: Int): Boolean =
         observeFavoriteTeamIds().first().contains(id)
+
+    override fun observeDarkTheme(): Flow<Boolean> =
+        context.dataStore.data.map { prefs ->
+            prefs[darkThemeKey] ?: false
+        }
+
+    override suspend fun setDarkTheme(enabled: Boolean) {
+        context.dataStore.edit { prefs ->
+            prefs[darkThemeKey] = enabled
+        }
+    }
 }

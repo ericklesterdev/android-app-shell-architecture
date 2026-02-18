@@ -20,7 +20,7 @@ class AppContainer(context: Context, config: AppConfig = AppConfig()) {
         )
     }
 
-    private val storageClient: StorageClient = DataStoreStorageClient(context)
+    val storageClient: StorageClient = DataStoreStorageClient(context)
 
     val teamsFeatureDependencies = TeamsFeatureDependencies(
         networkClient = networkClient,

@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -29,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nbahub.app.ui.theme.NbaHubTheme
 import com.nbahub.feature.scores.ScoresFeatureDependencies
 import com.nbahub.feature.scores.ScoresScreen
@@ -41,16 +44,19 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         val appContainer = AppContainer(applicationContext)
+        val nbaHubViewModel: NbaHubViewModel by viewModels {
+            NbaHubViewModel.factory(appContainer.storageClient)
+        }
 
         setContent {
-            var isDarkTheme by remember { mutableStateOf(false) }
+            val isDarkTheme by nbaHubViewModel.isDarkTheme.collectAsStateWithLifecycle()
 
             NbaHubTheme(darkTheme = isDarkTheme) {
                 NbaHubApp(
                     teamsFeatureDependencies = appContainer.teamsFeatureDependencies,
                     scoresFeatureDependencies = appContainer.scoresFeatureDependencies,
                     isDarkTheme = isDarkTheme,
-                    onToggleTheme = { isDarkTheme = !isDarkTheme },
+                    onToggleTheme = nbaHubViewModel::toggleTheme,
                 )
             }
         }
@@ -135,16 +141,18 @@ private fun NbaHubApp(
             }
         },
     ) { innerPadding ->
-        when (tabs[selectedTab]) {
-            Tab.Scores -> ScoresScreen(
-                dependencies = scoresFeatureDependencies,
-                modifier = Modifier.padding(innerPadding),
-            )
-            Tab.Teams -> TeamsScreen(
-                dependencies = teamsFeatureDependencies,
-                modifier = Modifier.padding(innerPadding),
-                onBackVisibleChange = { showBackButton = it },
-            )
+        Crossfade(targetState = tabs[selectedTab], label = "tab_crossfade") { tab ->
+            when (tab) {
+                Tab.Scores -> ScoresScreen(
+                    dependencies = scoresFeatureDependencies,
+                    modifier = Modifier.padding(innerPadding),
+                )
+                Tab.Teams -> TeamsScreen(
+                    dependencies = teamsFeatureDependencies,
+                    modifier = Modifier.padding(innerPadding),
+                    onBackVisibleChange = { showBackButton = it },
+                )
+            }
         }
     }
 }

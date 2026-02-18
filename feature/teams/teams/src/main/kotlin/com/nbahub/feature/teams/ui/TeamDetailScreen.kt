@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -47,7 +48,7 @@ internal fun TeamDetailScreen(
 
     when (val state = uiState) {
         is TeamDetailUiState.Loading -> TeamDetailLoading(modifier)
-        is TeamDetailUiState.Error -> TeamDetailError(state.message, modifier)
+        is TeamDetailUiState.Error -> TeamDetailError(state.message, onRetry = viewModel::retry, modifier = modifier)
         is TeamDetailUiState.Success -> TeamDetailContent(
             team = state.team,
             players = state.players,
@@ -66,9 +67,14 @@ private fun TeamDetailLoading(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun TeamDetailError(message: String, modifier: Modifier = Modifier) {
+private fun TeamDetailError(message: String, onRetry: () -> Unit, modifier: Modifier = Modifier) {
     Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = message, color = MaterialTheme.colorScheme.error)
+        Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Text(text = message, color = MaterialTheme.colorScheme.error)
+            Button(onClick = onRetry) {
+                Text(text = stringResource(R.string.teams_retry))
+            }
+        }
     }
 }
 

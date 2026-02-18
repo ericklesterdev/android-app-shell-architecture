@@ -71,6 +71,11 @@ internal class TeamDetailViewModel(
         }
     }
 
+    fun retry() {
+        _uiState.value = TeamDetailUiState.Loading
+        loadTeamDetail()
+    }
+
     fun toggleFavorite() {
         viewModelScope.launch {
             storageClient.toggleFavoriteTeam(teamId)

@@ -1,5 +1,7 @@
 package com.nbahub.feature.teams
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -65,6 +67,18 @@ fun TeamsScreen(
             composable(
                 route = TeamsDestinations.DETAIL,
                 arguments = listOf(navArgument("teamId") { type = NavType.IntType }),
+                enterTransition = {
+                    slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(300))
+                },
+                exitTransition = {
+                    slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Start, tween(300))
+                },
+                popEnterTransition = {
+                    slideIntoContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(300))
+                },
+                popExitTransition = {
+                    slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.End, tween(300))
+                },
             ) { backStackEntry ->
                 val teamId = backStackEntry.arguments?.getInt("teamId") ?: return@composable
                 TeamDetailScreen(

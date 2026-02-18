@@ -21,16 +21,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.nbahub.feature.teams.R
 import com.nbahub.feature.teams.data.model.Team
 import com.nbahub.feature.teams.ui.teamColor
-
-private val FavoriteBlue = Color(0xFF1565C0)
-private val StarOrange = Color(0xFFFF9800)
+import com.nbahub.platform.design.favoriteAccent
+import com.nbahub.platform.design.favoriteContainer
+import com.nbahub.platform.design.onFavoriteContainer
+import com.nbahub.platform.design.onFavoriteContainerVariant
 
 @Composable
 internal fun TeamCard(
@@ -39,8 +39,8 @@ internal fun TeamCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val containerColor = if (isFavorite) FavoriteBlue else MaterialTheme.colorScheme.surface
-    val contentColor = if (isFavorite) Color.White else MaterialTheme.colorScheme.onSurface
+    val containerColor = if (isFavorite) MaterialTheme.colorScheme.favoriteContainer else MaterialTheme.colorScheme.surface
+    val contentColor = if (isFavorite) MaterialTheme.colorScheme.onFavoriteContainer else MaterialTheme.colorScheme.onSurface
 
     Card(
         onClick = onClick,
@@ -73,7 +73,7 @@ internal fun TeamCard(
                         Icon(
                             imageVector = Icons.Default.Star,
                             contentDescription = stringResource(R.string.teams_favorite_icon_description),
-                            tint = StarOrange,
+                            tint = MaterialTheme.colorScheme.favoriteAccent,
                             modifier = Modifier.size(18.dp),
                         )
                     }
@@ -91,7 +91,7 @@ internal fun TeamCard(
 @Composable
 private fun InfoChip(label: String, isFavorite: Boolean) {
     val chipColor = if (isFavorite) {
-        Color.White.copy(alpha = 0.2f)
+        MaterialTheme.colorScheme.onFavoriteContainer.copy(alpha = 0.2f)
     } else {
         MaterialTheme.colorScheme.surfaceVariant
     }

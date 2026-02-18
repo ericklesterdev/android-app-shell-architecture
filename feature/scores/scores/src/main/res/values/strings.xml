@@ -5,6 +5,7 @@
 
 
     <string name="scores_error">Error: %s</string>
+    <string name="scores_retry">Retry</string>
     <string name="scores_favorite_description">Favorite team</string>
     <string name="scores_status_final">FINAL</string>
     <string name="scores_status_halftime">HT</string>
