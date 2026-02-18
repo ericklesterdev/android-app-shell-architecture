@@ -18,7 +18,6 @@ dependencyResolutionManagement {
 rootProject.name = "nba-scores-sdk"
 
 include(":nba-scores-sdk")
-include(":showcase")
 
 // Platform modules
 includeBuild("../../platform/design") {

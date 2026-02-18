@@ -20,7 +20,7 @@ tasks.configureEach {
 }
 
 dependencies {
-    implementation(project(":nba-scores-sdk"))
+    implementation("com.example:nba-scores-sdk")
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
