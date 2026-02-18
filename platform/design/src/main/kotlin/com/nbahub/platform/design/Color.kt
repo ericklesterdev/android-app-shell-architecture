@@ -1,10 +1,33 @@
 package com.nbahub.platform.design
 
+import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.graphics.Color
 
 val NbaBlue = Color(0xFF1D428A)
 val NbaRed = Color(0xFFC8102E)
 val NbaWhite = Color(0xFFFFFFFF)
+
+// Semantic extension colors for app-wide use
+val ColorScheme.favoriteContainer: Color
+    get() = Color(0xFF1565C0)
+
+val ColorScheme.onFavoriteContainer: Color
+    get() = Color.White
+
+val ColorScheme.onFavoriteContainerVariant: Color
+    get() = Color.White.copy(alpha = 0.7f)
+
+val ColorScheme.favoriteAccent: Color
+    get() = Color(0xFFFFD600)
+
+val ColorScheme.statusLive: Color
+    get() = Color(0xFFD32F2F)
+
+val ColorScheme.statusFinal: Color
+    get() = Color(0xFF616161)
+
+val ColorScheme.onStatusBadge: Color
+    get() = Color.White
 
 val LightPrimary = NbaBlue
 val LightOnPrimary = NbaWhite

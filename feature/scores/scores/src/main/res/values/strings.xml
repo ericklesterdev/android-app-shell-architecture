@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="scores_placeholder">Scores coming soon</string>
+    <string name="scores_header">Scores</string>
+    <string name="scores_live_count">%d games live now</string>
+    <string name="scores_section_your_teams">YOUR TEAMS</string>
+
+    <string name="scores_error">Error: %s</string>
+    <string name="scores_favorite_description">Favorite team</string>
+    <string name="scores_status_final">FINAL</string>
+    <string name="scores_status_halftime">HT</string>
+    <string name="scores_status_quarter_with_time">Q%d %s</string>
+    <string name="scores_status_quarter">Q%d</string>
+    <string name="scores_upcoming_score">-</string>
 </resources>
