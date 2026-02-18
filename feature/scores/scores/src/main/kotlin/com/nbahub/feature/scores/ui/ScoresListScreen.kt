@@ -91,14 +91,6 @@ private fun ScoresListContent(
         }
 
         if (yourTeamGames.isNotEmpty()) {
-            item {
-                Text(
-                    text = stringResource(R.string.scores_section_your_teams),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                Spacer(Modifier.height(12.dp))
-            }
             items(yourTeamGames, key = { "fav_${it.id}" }) { game ->
                 GameCard(game = game, isHighlighted = true)
                 Spacer(Modifier.height(12.dp))

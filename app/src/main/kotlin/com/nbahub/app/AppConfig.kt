@@ -1,7 +1,7 @@
 package com.nbahub.app
 
-object AppConfig {
-    val useMockNetwork = true
-    val apiKey = ""
-    val baseUrl = "https://api.balldontlie.io/"
-}
+data class AppConfig(
+    val useMockNetwork: Boolean = true,
+    val apiKey: String = "",
+    val baseUrl: String = "https://api.balldontlie.io/",
+)
