@@ -21,6 +21,14 @@ internal class FakeStorageClient : StorageClient {
 
     override suspend fun isFavoriteTeam(id: Int): Boolean = id in _favoriteTeamIds.value
 
+    private val _darkTheme = MutableStateFlow(false)
+
+    override fun observeDarkTheme(): Flow<Boolean> = _darkTheme.asStateFlow()
+
+    override suspend fun setDarkTheme(enabled: Boolean) {
+        _darkTheme.value = enabled
+    }
+
     fun setFavorites(ids: Set<Int>) {
         _favoriteTeamIds.value = ids
     }
