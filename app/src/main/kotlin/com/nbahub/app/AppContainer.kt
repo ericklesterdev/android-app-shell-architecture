@@ -1,6 +1,7 @@
 package com.nbahub.app
 
 import android.content.Context
+import com.nbahub.feature.scores.ScoresFeatureDependencies
 import com.nbahub.feature.teams.TeamsFeatureDependencies
 import com.nbahub.platform.network.NetworkClient
 import com.nbahub.platform.network.OkHttpNetworkClient
@@ -22,6 +23,11 @@ class AppContainer(context: Context) {
     private val storageClient: StorageClient = DataStoreStorageClient(context)
 
     val teamsFeatureDependencies = TeamsFeatureDependencies(
+        networkClient = networkClient,
+        storageClient = storageClient,
+    )
+
+    val scoresFeatureDependencies = ScoresFeatureDependencies(
         networkClient = networkClient,
         storageClient = storageClient,
     )

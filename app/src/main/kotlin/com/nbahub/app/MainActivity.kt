@@ -5,8 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -28,11 +26,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import com.nbahub.app.ui.theme.NbaHubTheme
+import com.nbahub.feature.scores.ScoresFeatureDependencies
+import com.nbahub.feature.scores.ScoresScreen
 import com.nbahub.feature.teams.TeamsFeatureDependencies
 import com.nbahub.feature.teams.TeamsScreen
 
@@ -49,6 +48,7 @@ class MainActivity : ComponentActivity() {
             NbaHubTheme(darkTheme = isDarkTheme) {
                 NbaHubApp(
                     teamsFeatureDependencies = appContainer.teamsFeatureDependencies,
+                    scoresFeatureDependencies = appContainer.scoresFeatureDependencies,
                     isDarkTheme = isDarkTheme,
                     onToggleTheme = { isDarkTheme = !isDarkTheme },
                 )
@@ -66,6 +66,7 @@ private enum class Tab(val labelResId: Int) {
 @Composable
 private fun NbaHubApp(
     teamsFeatureDependencies: TeamsFeatureDependencies,
+    scoresFeatureDependencies: ScoresFeatureDependencies,
     isDarkTheme: Boolean,
     onToggleTheme: () -> Unit,
 ) {
@@ -135,8 +136,8 @@ private fun NbaHubApp(
         },
     ) { innerPadding ->
         when (tabs[selectedTab]) {
-            Tab.Scores -> PlaceholderScreen(
-                title = stringResource(R.string.scores_coming_soon),
+            Tab.Scores -> ScoresScreen(
+                dependencies = scoresFeatureDependencies,
                 modifier = Modifier.padding(innerPadding),
             )
             Tab.Teams -> TeamsScreen(
@@ -145,19 +146,5 @@ private fun NbaHubApp(
                 onBackVisibleChange = { showBackButton = it },
             )
         }
-    }
-}
-
-@Composable
-private fun PlaceholderScreen(title: String, modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Text(
-            text = title,
-            style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
-        )
     }
 }

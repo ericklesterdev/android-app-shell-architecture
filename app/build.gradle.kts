@@ -17,6 +17,7 @@ dependencies {
     implementation("com.example:platform-network")
     implementation("com.example:platform-storage")
     implementation("com.example:feature-teams")
+    implementation("com.example:feature-scores")
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
