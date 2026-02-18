@@ -2,19 +2,11 @@
 
 A reference Android project demonstrating how to structure a large-scale, multi-module codebase where every feature is an independent Gradle build. The app itself is an NBA scores and teams viewer, but the real focus is the architecture: strict module boundaries, framework-free public APIs, composite builds with dependency substitution, and packaging a feature into a redistributable SDK that external companies can embed without knowing anything about the internals.
 
-## Screenshots
+## Demo
 
-### Light Mode
-
-| Scores | Teams | Team Detail | Favorites |
-|--------|-------|-------------|-----------|
-| <img src="Screenshots/Screenshot 2026-02-04 at 5.57.04 PM.png" width="200"/> | <img src="Screenshots/Screenshot 2026-02-04 at 5.57.15 PM.png" width="200"/> | <img src="Screenshots/Screenshot 2026-02-04 at 5.57.28 PM.png" width="200"/> | <img src="Screenshots/Screenshot 2026-02-04 at 5.57.34 PM.png" width="200"/> |
-
-### Dark Mode
-
-| Scores | Teams | Team Detail |
-|--------|-------|-------------|
-| <img src="Screenshots/Screenshot 2026-02-17 at 8.33.02 PM.png" width="200"/> | <img src="Screenshots/Screenshot 2026-02-17 at 8.42.53 PM.png" width="200"/> | <img src="Screenshots/Screenshot 2026-02-17 at 8.43.10 PM.png" width="200"/> |
+| Light Mode | Dark Mode |
+|:----------:|:---------:|
+| <video src="https://github.com/user-attachments/assets/f66557d1-2cbd-40b8-8a4e-2013f9ad738a" width="200"/> | <video src="https://github.com/user-attachments/assets/37c5128f-3c4b-4846-96b0-7b293ab0b42a" width="200"/> |
 
 ## Architecture
 
