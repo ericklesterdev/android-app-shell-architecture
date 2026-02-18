@@ -9,6 +9,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import com.nbahub.feature.teams.TeamsFeatureDependencies
 import com.nbahub.feature.teams.TeamsScreen
+import com.nbahub.platform.design.NbaHubTheme
 import com.nbahub.platform.network.mock.MockNetworkClient
 import com.nbahub.platform.storage.DataStoreStorageClient
 
@@ -23,11 +24,13 @@ class ShowcaseActivity : ComponentActivity() {
         )
 
         setContent {
-            Scaffold { innerPadding ->
-                TeamsScreen(
-                    dependencies = dependencies,
-                    modifier = Modifier.padding(innerPadding),
-                )
+            NbaHubTheme {
+                Scaffold { innerPadding ->
+                    TeamsScreen(
+                        dependencies = dependencies,
+                        modifier = Modifier.padding(innerPadding),
+                    )
+                }
             }
         }
     }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NBA Hub</string>
+    <string name="tab_scores">Scores</string>
+    <string name="tab_teams">Teams</string>
+    <string name="scores_coming_soon">Scores coming soon</string>
+    <string name="toggle_theme">Toggle theme</string>
+    <string name="navigate_back">Navigate back</string>
+</resources>
