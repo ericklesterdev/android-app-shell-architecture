@@ -26,6 +26,7 @@ internal data class TeamsListUiState(
     val favoriteTeamIds: Set<Int> = emptySet(),
     val selectedConference: Conference = Conference.ALL,
     val isLoading: Boolean = true,
+    val error: String? = null,
 )
 
 internal class TeamsListViewModel(
@@ -43,9 +44,18 @@ internal class TeamsListViewModel(
 
     private fun loadTeams() {
         viewModelScope.launch {
-            val teams = teamsService.getTeams()
-            _uiState.update { it.copy(teams = teams, isLoading = false) }
+            try {
+                val teams = teamsService.getTeams()
+                _uiState.update { it.copy(teams = teams, isLoading = false) }
+            } catch (@Suppress("TooGenericExceptionCaught") e: Exception) {
+                _uiState.update { it.copy(error = e.message, isLoading = false) }
+            }
         }
+    }
+
+    fun retry() {
+        _uiState.update { it.copy(isLoading = true, error = null) }
+        loadTeams()
     }
 
     private fun observeFavorites() {

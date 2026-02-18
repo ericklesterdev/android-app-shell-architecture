@@ -43,6 +43,11 @@ internal class ScoresListViewModel @Inject constructor(
         }
     }
 
+    fun retry() {
+        _uiState.update { it.copy(isLoading = true, error = null) }
+        loadGames()
+    }
+
     private fun observeFavorites() {
         viewModelScope.launch {
             storageClient.observeFavoriteTeamIds().collect { favoriteIds ->

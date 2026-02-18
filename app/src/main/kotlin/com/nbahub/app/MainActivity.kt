@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -135,16 +136,18 @@ private fun NbaHubApp(
             }
         },
     ) { innerPadding ->
-        when (tabs[selectedTab]) {
-            Tab.Scores -> ScoresScreen(
-                dependencies = scoresFeatureDependencies,
-                modifier = Modifier.padding(innerPadding),
-            )
-            Tab.Teams -> TeamsScreen(
-                dependencies = teamsFeatureDependencies,
-                modifier = Modifier.padding(innerPadding),
-                onBackVisibleChange = { showBackButton = it },
-            )
+        Crossfade(targetState = tabs[selectedTab], label = "tab_crossfade") { tab ->
+            when (tab) {
+                Tab.Scores -> ScoresScreen(
+                    dependencies = scoresFeatureDependencies,
+                    modifier = Modifier.padding(innerPadding),
+                )
+                Tab.Teams -> TeamsScreen(
+                    dependencies = teamsFeatureDependencies,
+                    modifier = Modifier.padding(innerPadding),
+                    onBackVisibleChange = { showBackButton = it },
+                )
+            }
         }
     }
 }

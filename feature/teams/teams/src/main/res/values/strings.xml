@@ -19,4 +19,6 @@
     <string name="teams_detail_division">Division: %s</string>
     <string name="teams_detail_city">City: %s</string>
     <string name="teams_detail_weight">%s lbs</string>
+    <string name="teams_error">Error: %s</string>
+    <string name="teams_retry">Retry</string>
 </resources>

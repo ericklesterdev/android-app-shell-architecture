@@ -4,13 +4,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.nbahub.feature.teams.R
-
-private val StarOrange = Color(0xFFFF9800)
+import com.nbahub.platform.design.favoriteAccent
+import com.nbahub.platform.design.onFavoriteContainer
 
 @Composable
 internal fun FavoriteFab(
@@ -21,7 +21,7 @@ internal fun FavoriteFab(
     FloatingActionButton(
         onClick = onClick,
         modifier = modifier,
-        containerColor = if (isFavorite) StarOrange else Color.White,
+        containerColor = if (isFavorite) MaterialTheme.colorScheme.favoriteAccent else MaterialTheme.colorScheme.surface,
     ) {
         Icon(
             imageVector = Icons.Filled.Star,
@@ -30,7 +30,7 @@ internal fun FavoriteFab(
             } else {
                 stringResource(R.string.teams_detail_favorite_add)
             },
-            tint = if (isFavorite) Color.White else StarOrange,
+            tint = if (isFavorite) MaterialTheme.colorScheme.onFavoriteContainer else MaterialTheme.colorScheme.favoriteAccent,
         )
     }
 }
