@@ -14,6 +14,9 @@ android {
 
 dependencies {
     implementation("com.example:platform-design")
+    implementation("com.example:platform-network")
+    implementation("com.example:platform-storage")
+    implementation("com.example:feature-teams")
 
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)

@@ -6,27 +6,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -60,7 +52,6 @@ internal fun TeamDetailScreen(
             team = state.team,
             players = state.players,
             isFavorite = state.isFavorite,
-            onBack = onBack,
             onToggleFavorite = viewModel::toggleFavorite,
             modifier = modifier,
         )
@@ -81,43 +72,18 @@ private fun TeamDetailError(message: String, modifier: Modifier = Modifier) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun TeamDetailContent(
     team: Team,
     players: List<Player>,
     isFavorite: Boolean,
-    onBack: () -> Unit,
     onToggleFavorite: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopAppBar(
-                title = { Text(team.fullName) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.teams_detail_back),
-                        )
-                    }
-                },
-                windowInsets = WindowInsets(0, 0, 0, 0),
-            )
-        },
-        floatingActionButton = {
-            FavoriteFab(
-                isFavorite = isFavorite,
-                onClick = onToggleFavorite,
-            )
-        },
-    ) { innerPadding ->
+    Box(modifier = modifier) {
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
+            modifier = Modifier.fillMaxSize(),
         ) {
             item {
                 TeamBanner(
@@ -214,6 +180,14 @@ private fun TeamDetailContent(
 
             item { Spacer(Modifier.height(80.dp)) }
         }
+
+        FavoriteFab(
+            isFavorite = isFavorite,
+            onClick = onToggleFavorite,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
+        )
     }
 }
 

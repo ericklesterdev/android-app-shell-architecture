@@ -26,10 +26,17 @@ private val DarkColorScheme = darkColorScheme(
     primary = DarkPrimary,
     onPrimary = DarkOnPrimary,
     secondary = DarkSecondary,
+    onSecondary = DarkOnSecondary,
     background = DarkBackground,
     surface = DarkSurface,
     onBackground = DarkOnBackground,
     onSurface = DarkOnSurface,
+    surfaceVariant = DarkSurfaceVariant,
+    onSurfaceVariant = DarkOnSurfaceVariant,
+    outline = DarkOutline,
+    outlineVariant = DarkOutlineVariant,
+    inverseSurface = DarkInverseSurface,
+    inverseOnSurface = DarkInverseOnSurface,
 )
 
 @Composable
