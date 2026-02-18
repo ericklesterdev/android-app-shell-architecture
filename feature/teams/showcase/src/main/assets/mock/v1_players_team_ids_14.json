@@ -1,0 +1,16 @@
+{
+  "data": [
+    { "id": 237, "first_name": "LeBron", "last_name": "James", "position": "F", "height": "6-9", "weight": "250", "jersey_number": "23", "college": "N/A", "country": "USA", "draft_year": 2003, "draft_round": 1, "draft_number": 1 },
+    { "id": 115, "first_name": "Anthony", "last_name": "Davis", "position": "F-C", "height": "6-10", "weight": "253", "jersey_number": "3", "college": "Kentucky", "country": "USA", "draft_year": 2012, "draft_round": 1, "draft_number": 1 },
+    { "id": 350, "first_name": "Austin", "last_name": "Reaves", "position": "G", "height": "6-5", "weight": "197", "jersey_number": "15", "college": "Oklahoma", "country": "USA", "draft_year": 2021, "draft_round": 0, "draft_number": 0 },
+    { "id": 351, "first_name": "D'Angelo", "last_name": "Russell", "position": "G", "height": "6-4", "weight": "193", "jersey_number": "1", "college": "Ohio State", "country": "USA", "draft_year": 2015, "draft_round": 1, "draft_number": 2 },
+    { "id": 352, "first_name": "Rui", "last_name": "Hachimura", "position": "F", "height": "6-8", "weight": "230", "jersey_number": "28", "college": "Gonzaga", "country": "Japan", "draft_year": 2019, "draft_round": 1, "draft_number": 9 },
+    { "id": 353, "first_name": "Jaxson", "last_name": "Hayes", "position": "C", "height": "6-11", "weight": "220", "jersey_number": "10", "college": "Texas", "country": "USA", "draft_year": 2019, "draft_round": 1, "draft_number": 8 },
+    { "id": 354, "first_name": "Gabe", "last_name": "Vincent", "position": "G", "height": "6-3", "weight": "200", "jersey_number": "7", "college": "UC Santa Barbara", "country": "USA", "draft_year": 2019, "draft_round": 0, "draft_number": 0 },
+    { "id": 355, "first_name": "Taurean", "last_name": "Prince", "position": "F", "height": "6-6", "weight": "218", "jersey_number": "12", "college": "Baylor", "country": "USA", "draft_year": 2016, "draft_round": 1, "draft_number": 12 },
+    { "id": 356, "first_name": "Jarred", "last_name": "Vanderbilt", "position": "F", "height": "6-9", "weight": "214", "jersey_number": "2", "college": "Kentucky", "country": "USA", "draft_year": 2018, "draft_round": 2, "draft_number": 41 },
+    { "id": 357, "first_name": "Christian", "last_name": "Wood", "position": "F-C", "height": "6-10", "weight": "214", "jersey_number": "35", "college": "UNLV", "country": "USA", "draft_year": 2015, "draft_round": 0, "draft_number": 0 },
+    { "id": 358, "first_name": "Max", "last_name": "Christie", "position": "G", "height": "6-5", "weight": "190", "jersey_number": "10", "college": "Michigan State", "country": "USA", "draft_year": 2022, "draft_round": 2, "draft_number": 35 },
+    { "id": 359, "first_name": "Cam", "last_name": "Reddish", "position": "F", "height": "6-8", "weight": "218", "jersey_number": "5", "college": "Duke", "country": "USA", "draft_year": 2019, "draft_round": 1, "draft_number": 10 }
+  ]
+}

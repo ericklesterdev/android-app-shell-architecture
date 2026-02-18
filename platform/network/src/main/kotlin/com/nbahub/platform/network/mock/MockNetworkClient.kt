@@ -22,13 +22,29 @@ class MockNetworkClient(private val context: Context) : NetworkClient {
         queryParams: Map<String, String>,
         deserializer: DeserializationStrategy<T>,
     ): T = withContext(Dispatchers.IO) {
-        val assetPath = "mock/${path.replace("/", "_")}.json"
-        val jsonString = try {
-            context.assets.open(assetPath).bufferedReader().use { it.readText() }
-        } catch (_: FileNotFoundException) {
-            detailFallback(path) ?: throw FileNotFoundException("Mock file not found: $assetPath")
+        val basePath = "mock/${path.replace("/", "_")}"
+        val jsonString = if (queryParams.isNotEmpty()) {
+            val suffix = queryParams.entries
+                .sortedBy { it.key }
+                .joinToString("_") { (key, value) ->
+                    "${key.replace("[", "").replace("]", "")}_$value"
+                }
+            tryReadAsset("${basePath}_${suffix}.json")
+                ?: tryReadAsset("$basePath.json")
+                ?: detailFallback(path)
+                ?: throw FileNotFoundException("Mock not found: $basePath")
+        } else {
+            tryReadAsset("$basePath.json")
+                ?: detailFallback(path)
+                ?: throw FileNotFoundException("Mock not found: $basePath")
         }
         json.decodeFromString(deserializer, jsonString)
+    }
+
+    private fun tryReadAsset(assetPath: String): String? = try {
+        context.assets.open(assetPath).bufferedReader().use { it.readText() }
+    } catch (_: FileNotFoundException) {
+        null
     }
 
     @Suppress("ReturnCount")

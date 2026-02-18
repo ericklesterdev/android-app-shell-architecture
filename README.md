@@ -57,7 +57,7 @@ sdk/nba-scores-sdk/           ← Independent Gradle build
 build-logic/convention/       ← Shared convention plugins
 ```
 
-Every module is an **independent Gradle build** connected via `includeBuild()` and `dependencySubstitution`. This means each module can be built, tested, and developed in isolation.
+Every module is an **independent Gradle build** connected via `includeBuild()` and `dependencySubstitution`. This means each module can be built, tested, and developed in isolation. Note that `includeBuild()` with `dependencySubstitution` is used here for the **development phase only** — in a production setup, modules would be connected via **published Maven artifacts** (e.g., from a private artifact repository), removing the need for composite builds entirely. This architecture works equally well in a **monorepo** (all modules in one repository, as shown here) or a **multi-repo** setup (each module in its own repository, consuming dependencies as published artifacts).
 
 ### Key Design Decisions
 
