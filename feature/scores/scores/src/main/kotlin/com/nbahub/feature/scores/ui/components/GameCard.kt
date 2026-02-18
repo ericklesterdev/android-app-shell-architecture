@@ -93,7 +93,7 @@ internal fun GameCard(
                 isHighlighted = isHighlighted,
             )
 
-            Spacer(Modifier.height(4.dp))
+            Spacer(Modifier.height(12.dp))
 
             ScoreTeamRow(
                 team = game.homeTeam,
